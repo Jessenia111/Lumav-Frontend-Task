@@ -6,3 +6,5 @@ export default defineNuxtConfig({
     weatherApiKey: process.env.WEATHER_API_KEY
   }
 })
+
+

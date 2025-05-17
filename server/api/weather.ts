@@ -1,15 +1,11 @@
 export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
     const apiKey = config.weatherApiKey
-    const city = 'Tallinn'
+    const query = getQuery(event)
+    const city = query.city || 'Tallinn'
   
-    const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-    )
-  
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
     const data = await res.json()
-  
-    console.log('OpenWeather API response:', data)
   
     if (!data.main || !data.weather) {
       throw createError({
